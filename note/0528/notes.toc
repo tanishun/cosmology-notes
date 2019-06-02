@@ -1,0 +1,25 @@
+\contentsline {section}{\numberline {0}Premalies}{3}{section.0}
+\contentsline {section}{Part 1: THE EXPANSINON OF THE UNIVERSE}{4}{section*.2}
+\contentsline {section}{\numberline {1}Space geometry}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}large properties of the spacetime}{13}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}finite (compact) spaces $K=+1$}{13}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}infinite (non-compact) spaces $K=0$ or $K=-1$ }{13}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Periodic condition}{13}{subsubsection.1.1.3}
+\contentsline {section}{\numberline {2}The cosmological redshift}{13}{section.2}
+\contentsline {subsection}{\numberline {2.1}History of observation of redshift}{16}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Previous Hubble constant}{17}{subsection.2.2}
+\contentsline {section}{\numberline {3}Distances at small redshift: The Hubble constant}{17}{section.3}
+\contentsline {subsection}{\numberline {3.1}A. Primary distance indicators1}{17}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Trigonometric parallax}{17}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Proper motions}{17}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}二次の指標距離(Secondary distance indicators)の例}{19}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}ハッブル定数を測定する様々な現象}{25}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}ハッブル定数の最近の表記について}{25}{subsubsection.3.1.5}
+\contentsline {section}{\numberline {4}Luminosity distances and angular diameter distances}{26}{section.4}
+\contentsline {section}{\numberline {5}宇宙膨張の動力学(Dynamics of expansion)}{29}{section.5}
+\contentsline {subsection}{\numberline {5.1}宇宙膨張についてフリードマン方程式から考察}{35}{subsection.5.1}
+\contentsline {section}{\numberline {6}大きな赤方偏移における距離(Distances at large redshift)}{42}{section.6}
+\contentsline {subsection}{\numberline {6.1}標準光源の考察}{42}{subsection.6.1}
+\contentsline {section}{\numberline {10}銀河間のガスによる吸収(Intergalactic absorption)}{1}{section.10}
+\contentsline {section}{\numberline {11}計数(Number counts)}{9}{section.11}
+\contentsline {section}{\numberline {12}クインテッセンス(Quintessence)}{10}{section.12}

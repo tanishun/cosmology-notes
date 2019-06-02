@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {0}Premalies}{3}{section.0}
+\contentsline {section}{Part 1: THE EXPANSINON OF THE UNIVERSE}{4}{section*.2}
+\contentsline {section}{\numberline {1}Space geometry}{4}{section.1}
+\contentsline {subsection}{\numberline {1.1}large properties of the spacetime}{12}{subsection.1.1}
+\contentsline {subsubsection}{\numberline {1.1.1}finite (compact) spaces $K=+1$}{12}{subsubsection.1.1.1}
+\contentsline {subsubsection}{\numberline {1.1.2}infinite (non-compact) spaces $K=0$ or $K=-1$ }{12}{subsubsection.1.1.2}
+\contentsline {subsubsection}{\numberline {1.1.3}Periodic condition}{12}{subsubsection.1.1.3}
+\contentsline {section}{\numberline {2}The cosmological redshift}{12}{section.2}
+\contentsline {subsection}{\numberline {2.1}History of observation of redshift}{14}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Previous Hubble constant}{15}{subsection.2.2}
+\contentsline {section}{\numberline {3}Distances at small redshift: The Hubble constant}{16}{section.3}
+\contentsline {subsection}{\numberline {3.1}A. Primary distance indicators1}{16}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Trigonometric parallax}{16}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Proper motions}{16}{subsubsection.3.1.2}
+\contentsline {subsubsection}{\numberline {3.1.3}二次の指標距離(Secondary distance indicators)の例}{17}{subsubsection.3.1.3}
+\contentsline {subsubsection}{\numberline {3.1.4}ハッブル定数を測定する様々な現象}{21}{subsubsection.3.1.4}
+\contentsline {subsubsection}{\numberline {3.1.5}ハッブル定数の最近の表記について}{22}{subsubsection.3.1.5}
+\contentsline {section}{\numberline {4}Luminosity distances and angular diameter distances}{22}{section.4}
+\contentsline {section}{\numberline {5}宇宙膨張の動力学(Dynamics of expansion)}{24}{section.5}
+\contentsline {subsection}{\numberline {5.1}宇宙膨張についてフリードマン方程式から考察}{30}{subsection.5.1}
+\contentsline {section}{\numberline {6}大きな赤方偏移における距離(Distances at large redshift)}{36}{section.6}
+\contentsline {subsection}{\numberline {6.1}標準光源の考察}{36}{subsection.6.1}
