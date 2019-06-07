@@ -1875,7 +1875,7 @@ $-1<w$かつ$\dot{a}>0$の場合、解は$t  \to Ca^{(3+3w)/2} + t_1$となる�
 
 \newpage
 \setcounter{section}{9}
-\setcounter{page}{1}
+%\setcounter{page}{1}
 \section{銀河間のガスによる吸収(Intergalactic absorption)}\label{sec1-10:Intergalactic-absorption}
 
 最初の銀河および銀河団の元となった原子核や電子ガスの一部は、全て銀河になったわけではなく、銀河間の空間に残っている。
@@ -2266,18 +2266,128 @@ $\rho_{\varphi}=\rho_{M}$となる時刻での$\varphi$の値が、不明な定�
 
 さて、少し状況を変える。$\rho_M$が$\rho_\varphi$を非常に下回れば($\rho_M\ll \rho_{\varphi}$)、式(1.5.37)の$H=\sqrt{\frac{8\pi G \rho_V}{3}}$より、式\eqref{eq:1.12.4}を考えれば、
 \begin{align}
-  \ddot{\varphi}+\sqrt{24 \pi G \rho_{\varphi}} \dot{\varphi}-\alpha M^{4+\alpha} \varphi^{-\alpha-1}=0
+  \ddot{\varphi}+\sqrt{24 \pi G \rho_{\varphi}} \dot{\varphi}-\alpha M^{4+\alpha} \varphi^{-\alpha-1}=0 \label{eq:1.12.10}
 \end{align}%
 $\rho_V \to \rho_\varphi$と置き換えた。$\rho_\varphi$は式\eqref{eq:1.12.2}で与えられる。
 そして、この時代のトラッカー解は、複雑な時間依存性を持っている。
 しかし、十分に時間が経過し、現在よりももっと後の時刻になれば(?)、再び単純な形をとることを見よう。
 $\dot{\varphi}$に比例する減衰項は、$\varphi$の成長を妨げることから、最終的に$\dot{\varphi}$は$V(\varphi)$よりも小さくなり、また、$\ddot{\varphi}$に比例する慣性項は、減衰項やポテンシャル項に比べて、無視できるようになると推測できる(これは、4章と10章でのべるインフレーションの理論で重要な役割を果たす「スローロール（slow roll)」条件とよく似ている(らしい))。
-これは、
-アイウエオ。
+これらより、
+\begin{align}
+\dot{\varphi} \ll V(\varphi )\quad  かつ  a\quad |\ddot{\varphi}| \ll  V^{\prime}(\varphi)
+\end{align}%
+という条件を課せば、式\eqref{eq:1.12.10}は、
+\begin{align}
+  \sqrt{24 \pi G M^{4+\alpha} \varphi^{-\alpha}} \dot{\varphi}=\alpha M^{4+\alpha} \varphi^{-\alpha-1}
+\end{align}%
+となって、整理すると、
+\begin{align}
+  \dot{\varphi}=\frac{\alpha M^{2+\alpha / 2} \varphi^{-\alpha / 2-1}}{\sqrt{24 \pi G}}
+\end{align}%
+解けば、
+\begin{align}
+  \varphi=M\left(\frac{\alpha(2+\alpha / 2) t}{\sqrt{24 \pi G}}\right)^{1 /(2+\alpha / 2)} \label{eq:1.12.12}
+\end{align}%
+となる。
+ここで、$t$に積分定数を付与する代わりに、時刻のゼロ点を再定義した、とテキストが言っているが、$\phi(0) = 0$と定義したということで、
+指数の振る舞いを考えたいがために、このように表記を簡便にしたのだと思う。
+そもそも、この方程式を考えている時、時刻$t$が大きい時のことを考えていた。
+なので、現実的には、時刻$t$が小さい場合の方程式の解とうまく接続してやればいいと思う。
 
+さて、この得られた解を用いて、上で課したスローロール（に似ている）条件の近似の妥当性を確認してみよう。
+得られた解(式\eqref{eq:1.12:12})から、種々の量を計算すると、
+\begin{align}
+  \ddot{\varphi} & \propto t^{-(3+\alpha) /(2+\alpha / 2)} \\
+  \dot{\varphi}^{2} & \propto t^{-(2+\alpha) /(2+\alpha / 2)} \\
+  V^{\prime}(\varphi) &\propto t^{-(1+\alpha) /(2+\alpha / 2)} \\
+  V(\varphi) &\propto t^{-\alpha /(2+\alpha / 2)}
+\end{align}%;
+となる。$\dot{\varphi}^{2}$と$V(\varphi)$を比べると、$2/(2+\alpha/2)$次だけ違って、時間が十分経過すれば、場の運動エネルギーは、ポテンシャルに比べて小さくなることが確かめられる。また、$\ddot{\varphi} $と$V^{\prime}(\varphi) $を比べると、こちらも同じ次数だけ違って、時刻$t$が大きいところで、慣性項に比べてポテンシャルの微分に比べて小さくなることも確かめられる。
+したがって、式\eqref{eq:1.12:12}が$t\to \infty$における正しい漸近解であることが確かめられた。
+また、数値解より、これは$t \to \infty$における解であるだけではなく、$t \to \infty$においてトラッカー解が近づく漸近解でもあることが確かめられる（そうだが、まだ数値計算は成功していない）。
+
+先ほどの条件の下で、$\rho_{\varphi} \propto t^{-\alpha /(2+\alpha / 2)} (\propto V(\varphi))$が後期の宇宙膨張率を支配しているときは、$\dot{a} / a \propto t^{-\alpha / 2(2+\alpha / 2)}$である。というのは、$H = \sqrt{\frac{8\pi G \rho_{\varphi}}{3}}$だったから。このとき、$a$の解は、積分してやると、
+\begin{align}
+  \ln a \propto t^{2 /(2+\alpha / 2)}  \label{eq:1.12.13}
+\end{align}%
+宇宙定数$\Lambda$によって、引き起こされる$a$の急激な成長$\ln a \propto t$に似ているが、これよりは遅い成長である。
+このクインテッセンスのモデルの減速パラメーター$q_0$と膨張が宇宙定数で支配されるときの減速パラメター$q = -1$の比較をするには、
+式\eqref{eq:1.12.13}の両辺を二回微分してやると、
+\begin{align}
+  -\frac{\dot{a}^2}{a^2} + \frac{\ddot{a}}{a} \propto t^{2/(2+\alpha/2)}\\
+  \Rightarrow \quad -1 -(- \ddot{a}/(a H^2)) \propto t^{2/(2+\alpha/2)}/(\dot{a}^2 a^2 )\\
+  \Rightarrow \quad  q_0 -  \underbrace{(-1)}_{膨張が宇宙定数に支配されるときのq} \propto t^{-(2+\alpha) /(2+\alpha / 2)}
+\end{align}%
+結果的に、$\quad  q_0 -  (-1)\propto t^{-(2+\alpha) /(2+\alpha / 2)}$のように減少する。
+さて、放射と物質の密度$\rho$は、それぞれ$1 / a^{4} 、1 / a^{3}$のように減少し、また、これらの時空間の曲率は$1 / a^{2}$のように減少する。
+\footnote{これは、$\Omega_K \equiv -\frac{K}{a_0^2 H_0^2}$から、$K = -\Omega_K /a^2$と考えたらよろしい。もっとスマートな方法があったら教えていただければと思います。}
+$\rho_\varphi$の減少と比較するために、$t$の冪を使ってやれば、
+放射と物質の密度$\rho$は、それぞれ(だいたい)$t^{-2}$で減少する。
+そして、これらの曲率は、それぞれ、(だいたい)$t^{-1}、t^{-4/3}$のように減少し、
+だいたいと書いたのは、十分初期(K=0)の時のフリードマン方程式の結果を使ったから。
+しかしながら、$K$があっても、冪が$-1$より小さくならないほどの大きなズレがあることはないだろう、といい加減な考察をして次に進む。
+と、ここまでノートを書いたが、やっぱりいい加減だと思ったので、スケール因子$a$が場$\phi$のEOMが座標の運動方程式の形の方程式だったことを思い出して、$a \sim \varphi$とみなしたとして、考えてみると、先ほどの式\eqref{eq:1.12.12}の結果を素直に使って比較することで矛盾はない。
+結果的に、放射、物質の密度と時空間の曲率は$\rho_{\varphi}$が従う冪則よりも非常に早く減少する。
+したがって、後期の宇宙の膨張率は確かに$\rho_{\varphi}$に支配されるので、式\eqref{1.12.10}の導出法を正当化できる。
+
+このように、(少なくともある範囲の初期条件に関しては、)式(1.12.5)のクインテッセンスモデルの元祖で最も単純なポテンシャル:%\eqref{eq:1.12.5}
+\begin{align}
+  V(\varphi) = M^{4 + \alpha} \varphi^{-\alpha}
+\end{align}%
+は、初期に放射、次に物質、そして後期にスカラー場$\varphi$のエネルギーによって支配される宇宙膨張へと導く。
+しかし、観測と整合性を取るためには、考えないといけないことがあって、
+\begin{enumerate}
+\item 定数を加える任意性
+\item $M$の値をあわせる必要
+\end{enumerate}%
+の二つがある。
+前者は、ポテンシャルに定数の任意性があって、そして、現在の宇宙定数が非常に小さいという観測結果がある。
+これを、どのようにして、加えても何ら不思議ではない大きい定数を任意に除去するのか、というのが一つ。
+次に、式(1.12.8)%\eqref{1.12.8}
+で与えられる、$\rho_{\varphi} = \rho_{M}$となる時刻$t_c$が、現在の時刻$t_0 \approx 1/H_0$とほぼ同じになるように$M$の値を合わせる必要があって、
+\begin{align}
+  M^{4+\alpha}  \approx G^{-1 - \alpha/2} H_0^2
+\end{align}%
+と、値$M$をとらせねばならない。しかしながら、観測結果から決めたからいいものを、どうして、この値でなくてはならないのか、その理由は全くわかっていない。
+
+いくつかの観測グループが、真空のエネルギー密度が宇宙定数のように一定なのか、それとも時間変化しているのかを発見しようと、観測プロジェクトを計画している。
+そのようなプロジェクトの実験の方針は次の通り。
+まず、光度距離$d_{L}=a\left(t_{0}\right) r_{1}(1+z)$（あるいは、角径距離$\theta=s / d_{A} \,(d_{A}=a\left(t_{1}\right) r_{1})$)を観測し、
+それを式(1.5.45)：
+\begin{align}
+  \begin{aligned} d_{L}(z)=& a_{0} r(z)(1+z)=\frac{1+z}{H_{0} \Omega_{K}^{1 / 2}} \\ & \times \sinh \left[\Omega_{K}^{1 / 2} \int_{1 /(1+z)}^{1} \frac{d x}{x^{2} \sqrt{\Omega_{\Lambda}+\Omega_{K} x^{-2}+\Omega_{R} x^{-4}}}\right] \end{aligned}
+\end{align}%
+の平方根の中身$\Omega_\Lambda$を時間変化する暗黒エネルギーに置き換えた式と比較する。
+ただし、これらの観測では、現在の時刻における$w = p/\rho$の値$w_0$を直接測定するわけではない。いわんや、現在の時刻における微分$\dot{w},\ddot{w}$を測定するわけはない。
+というのは、そのような目的には小さな赤方偏移のおける光度距離（や角径距離）を非常に精度よく測定する必要があるからである。
+実際の測定は、ほど良い精度で広範囲の赤方偏移に渡って行われる。
+さて、そのような測定を理論と比較するためには、暗黒エネルギーの時間変化のモデルが必要となる。
+例えば、単純に$w$が一定と仮定したり、$w$が時間や赤方偏移に関して線形になると仮定するモデルがあるが、そのような振る舞いを持つ物理的モデルは存在しない。
+スカラー場のモデルに近いような$z$依存性を持つ$w$の関数形の研究もある。
+それより、スカラー場のモデルと観測を比較する方が好ましいだろう。
+そのスカラー場のモデルは、（モデルの自然さに多くの疑いがあるものの\footnote{whatever reservations may have about its naturalness の訳。上手。}）少なくとも物理的に可能な時間変動する暗黒エネルギーを与える。
+これらの観測は難しいため、たった二つのパラメーター記述できるスカラー場のモデルを採用するのは有益である。
+その二つのパラメータは、例えば、$\Omega_{\Lambda} = 1- \Omega_{M}$と$w_0$を使って表すことができる。
+$M,\alpha$とどう関係づけられるのかがあまりわからんが、
+ポテンシャル$V(\varphi)$を特徴付けるパラメーター$M,\alpha$の二つのパラメーターの自由度が、$w = p/\rho={\dot{\varphi}^2/2 - V(\varphi)}/{\dot{\varphi}^2/2 + V(\varphi)}$と、$\Omega_\Lambda $を指定するのに化けたということ。
+
+一つの可能性として、宇宙膨張によって、宇宙が$e$倍になった期間におけるスカラー場$\varphi$の値に対して、$V(\varphi)$がゆっくりと変化しなかった場合を考えよう。\footnote{どうでもいいけど、$e$倍とか考えるのは、真空優勢で$a$は、$\exp$で増えるところから来ている。}
+もし、$V(\varphi)$が全く変化しなかったら、それは定数の真空エネルギーと等価であり、$w = -1$となる。
+この場合、唯一のパラメータは$\Omega_{\Lambda}$である。
+二つのパラメータをフィットさせるときは、$V(\varphi)$を$\varphi$に関して線形に変化するようにとれて、\footnote{なんで？疑問に思いつつ保留にしておく。}
+\begin{align}
+  V(\varphi) = V_0 + (\varphi - \varphi_0) V_0^\prime
+\end{align}%
+当たり前だけど、$V_0^\prime = \partial_\varphi V(\varphi_0)$のこと。
+これは、$\left|V_{0}^{\prime \prime} \dot{\varphi}_{0}\right| \ll H_{0}\left|V_{0}^{\prime}\right|$だったら有効。
+言い換えると、$V^\prime(\varphi)$の微小変化が、$1/H_0$の時間幅において、（$V^\prime(\varphi)$より）\footnote{テキストにはこの文言がない。}小さければ有効。（テキストの後の方では、$\Delta t \sim 1/H_0$の間に、ポテンシャルが線形と扱って良い条件、と言い換えられている。）
+これを式にしてみると、
+\begin{align}
+ \frac{d V^{\prime}(\varphi)}{dt} \underbrace{\Delta t}_{\sim 1/H_0} \ll V^\prime(\varphi)
+\end{align}%
 
 \end{document}
-
+         
 \section{Intergalactic absorption}\label{sec1-10:Intergalactic-absorption}
 \section{Number counts}\label{sec:Number-counts}
 \section{Horizons}\label{sec:Horizons}
