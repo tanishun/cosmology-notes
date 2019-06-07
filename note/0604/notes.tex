@@ -1,0 +1,511 @@
+% !TEX TS-program = LuaLaTeX
+\documentclass[11pt]{ltjsarticle}
+
+
+%フォント(和文) japreset を使うことによって、一括に管理するようにしている。
+\usepackage[hiragino-pron,jis2004,
+deluxe%明朝体・ゴシック体各3ウェイトと，丸ゴシック体（mg）を利用可能にする
+,bold%明朝体太字をゴシック体太字によって代替する．
+]{luatexja-preset}
+%\renewcommand{\kanjifamilydefault}{\gtdefault}% 既定をゴシック体に
+
+\usepackage[height=8.8in,width=6.45in]{geometry}
+
+
+
+%数式フォント
+\usepackage{mathptmx}
+\usepackage[scaled]{helvet}
+\renewcommand{\ttdefault}{pcr}
+
+\usepackage{mathtools} %extended amsmath
+\usepackage{amssymb}
+%\mathtoolsset{showonlyrefs=true,showmanualtags}%represent the number of equation when quote eqref
+%\mathtoolsset{showonlyrefs,showmanualtags}
+%\usepackage[warnings-off={mathtools-colon}]{unicode-math}
+
+
+% not understanded
+\countdef\cpart=1
+\def\part#1{%
+\newpage
+\advance\cpart by 1
+\section*{Part \the\cpart: #1}
+\addcontentsline{toc}{section}{Part \the\cpart: #1}
+%
+}
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{bm} %boldmath
+\usepackage{mathdots}
+\usepackage{ulem}
+
+
+%????? これが効かないので一時的に外す。
+
+\usepackage{graphicx} % include graphic
+\usepackage{float}
+\usepackage[svgnames]{xcolor}%(xcolor.pdf p38~39)
+
+\usepackage{tensor}%for part 1 relativity
+
+\usepackage{enumerate}
+\usepackage{adjustbox}
+\usepackage[
+ unicode=true,
+ colorlinks=true,
+ bookmarks=true,
+ bookmarksnumbered=true,
+ pdftitle={notes},% タイトル
+ pdfsubject={relativity},% サブタイトル
+ pdfauthor={Shun Taniwaki},% 著者
+ pdfkeywords={Weinberg-Cosmology}% キーワード
+ citecolor=DarkGreen,
+ linkcolor=FireBrick,
+ %urlcolor=FireBrick,
+ linktocpage=true,
+]{hyperref}
+
+%\usepackage{pxjahyper} ドライバ依存パッケージ
+\usepackage[thref,amsmath,thmmarks]{ntheorem}
+
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+%\theoremsymbol{\text{\normalfont (Q.E.D.)}}
+\theoremseparator{.}
+\theoremstyle{break}
+
+\usepackage{mdframed}
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{principle}{原理}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{assumption}{仮定}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{definition}{定義}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{formula}{公式}[section]
+%\newmdtheoremenv[ntheorem,backgraoudcolor=black!0]{theorem}{定理}[subsection]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10]{theorem}[definition]{事実}
+\newmdtheoremenv[ntheorem,backgroundcolor=black!3,linecolor=black!0]{example}{(計算)例}[definition]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!0]{unclear}{Unclear points}[section]
+%\newmdtheoremenv[mdframedoption]{envname}[numberedlike]{caption} [within]
+
+
+\usepackage{tikz}
+\usepackage[compat=1.1.0]{tikz-feynman} %前に配置すると、xcolorと喧嘩する。
+
+%\mathtoolsset{showonlyrefs,showmanualtags}
+
+\usepackage{physics}
+
+% def bold faces
+\bmdefine{\bfa}{a}
+\bmdefine{\bfb}{b}
+\bmdefine{\bfc}{c}
+\bmdefine{\bfd}{d}
+\bmdefine{\bfe}{e}
+\bmdefine{\bff}{f}
+\bmdefine{\bfg}{g}
+\bmdefine{\bfh}{h}
+\bmdefine{\bfi}{i}
+\bmdefine{\bfj}{j}
+\bmdefine{\bfk}{k}
+\bmdefine{\bfl}{l}
+\bmdefine{\bfm}{m}
+\bmdefine{\bfn}{n}
+\bmdefine{\bfo}{o}
+\bmdefine{\bfp}{p}
+\bmdefine{\bfq}{q}
+\bmdefine{\bfr}{r}
+\bmdefine{\bfs}{s}
+\bmdefine{\bft}{t}
+\bmdefine{\bfu}{u}
+\bmdefine{\bfv}{v}
+\bmdefine{\bfw}{w}
+\bmdefine{\bfx}{x}
+\bmdefine{\bfy}{y}
+\bmdefine{\bfz}{z}
+\bmdefine{\bfA}{A}
+\bmdefine{\bfB}{B}
+\bmdefine{\bfC}{C}
+\bmdefine{\bfD}{D}
+\bmdefine{\bfE}{E}
+\bmdefine{\bfF}{F}
+\bmdefine{\bfG}{G}
+\bmdefine{\bfH}{H}
+\bmdefine{\bfI}{I}
+\bmdefine{\bfJ}{J}
+\bmdefine{\bfK}{K}
+\bmdefine{\bfL}{L}
+\bmdefine{\bfM}{M}
+\bmdefine{\bfN}{N}
+\bmdefine{\bfO}{O}
+\bmdefine{\bfP}{P}
+\bmdefine{\bfQ}{Q}
+\bmdefine{\bfR}{R}
+\bmdefine{\bfS}{S}
+\bmdefine{\bfT}{T}
+\bmdefine{\bfU}{U}
+\bmdefine{\bfV}{V}
+\bmdefine{\bfW}{W}
+\bmdefine{\bfX}{X}
+\bmdefine{\bfY}{Y}
+\bmdefine{\bfZ}{Z}
+\bmdefine{\bftheta}{\theta}
+\bmdefine{\bfphi}{\varphi}
+\bmdefine{\bfomega}{\omega}
+
+
+
+
+%mathbf
+\newcommand{\mbfa}{\mathbf{a}}
+\newcommand{\mbfb}{\mathbf{b}}
+\newcommand{\mbfc}{\mathbf{c}}
+\newcommand{\mbfd}{\mathbf{d}}
+\newcommand{\mbfe}{\mathbf{e}}
+\newcommand{\mbff}{\mathbf{f}}
+\newcommand{\mbfg}{\mathbf{g}}
+\newcommand{\mbfh}{\mathbf{h}}
+\newcommand{\mbfi}{\mathbf{i}}
+\newcommand{\mbfj}{\mathbf{j}}
+\newcommand{\mbfk}{\mathbf{k}}
+\newcommand{\mbfl}{\mathbf{l}}
+\newcommand{\mbfm}{\mathbf{m}}
+\newcommand{\mbfn}{\mathbf{n}}
+\newcommand{\mbfo}{\mathbf{o}}
+\newcommand{\mbfp}{\mathbf{p}}
+\newcommand{\mbfq}{\mathbf{q}}
+\newcommand{\mbfr}{\mathbf{r}}
+\newcommand{\mbfs}{\mathbf{s}}
+\newcommand{\mbft}{\mathbf{t}}
+\newcommand{\mbfu}{\mathbf{u}}
+\newcommand{\mbfv}{\mathbf{v}}
+\newcommand{\mbfw}{\mathbf{w}}
+\newcommand{\mbfx}{\mathbf{x}}
+\newcommand{\mbfy}{\mathbf{y}}
+\newcommand{\mbfz}{\mathbf{z}}
+\newcommand{\mbfA}{\mathbf{A}}
+\newcommand{\mbfB}{\mathbf{B}}
+\newcommand{\mbfC}{\mathbf{C}}
+\newcommand{\mbfD}{\mathbf{D}}
+\newcommand{\mbfE}{\mathbf{E}}
+\newcommand{\mbfF}{\mathbf{F}}
+\newcommand{\mbfG}{\mathbf{G}}
+\newcommand{\mbfH}{\mathbf{H}}
+\newcommand{\mbfI}{\mathbf{I}}
+\newcommand{\mbfJ}{\mathbf{J}}
+\newcommand{\mbfK}{\mathbf{K}}
+\newcommand{\mbfL}{\mathbf{L}}
+\newcommand{\mbfM}{\mathbf{M}}
+\newcommand{\mbfN}{\mathbf{N}}
+\newcommand{\mbfO}{\mathbf{O}}
+\newcommand{\mbfP}{\mathbf{P}}
+\newcommand{\mbfQ}{\mathbf{Q}}
+\newcommand{\mbfR}{\mathbf{R}}
+\newcommand{\mbfS}{\mathbf{S}}
+\newcommand{\mbfT}{\mathbf{T}}
+\newcommand{\mbfU}{\mathbf{U}}
+\newcommand{\mbfV}{\mathbf{V}}
+\newcommand{\mbfW}{\mathbf{W}}
+\newcommand{\mbfX}{\mathbf{X}}
+\newcommand{\mbfY}{\mathbf{Y}}
+\newcommand{\mbfZ}{\mathbf{Z}}
+%tilde
+\newcommand{\tilg}{\tilde{g}}
+\newcommand{\tilGamma}{\tilde{\Gamma}}
+%****
+\def\TODO#1{{\color{FireBrick} #1}}
+%***
+\newcommand{\Slash}[1]{{\ooalign{\hfil/\hfil\crcr$#1$}}}%スラッシュ引くよう
+
+\def\ii{\mathrm{i}}
+\def\Nequals#1{$\mathcal{N}{=}\,#1$}
+
+%def tensors
+\newcommand{\tensorR}[1]{\tensor{R}{ #1}}
+\newcommand{\tensorGamma}[1]{\tensor{\Gamma}{ #1}}
+\newcommand{\tensorG}[1]{\tensor{G}{ #1}}
+\newcommand{\tensorg}[1]{\tensor{g}{ #1}}
+
+%def math operators
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\def\odi#1#2{\frac{d #1}{d #2}} %ordinary differential
+\def\todi#1#2{\frac{d^{2} #1}{d #2^{2}}} %two ordinary differential
+\newcommand{\pdi}[2]{\frac{\partial #1}{\partial #2}}%partial differential
+\newcommand{\tpdi}[2]{\frac{\partial #1^{2}}{\partial #2^{2}}}%two partial differential
+\def\vev#1{\Bigl(#1\Bigr)}% Vacume Expectation Value ?
+\DeclareMathOperator{\sign}{sign}% sign
+\def\diag{\mathop{\mathrm{diag}}\nolimits}% diagonalize
+\def\tr{\mathop{\mathrm{tr}}\nolimits}% trace
+\def\adj{\mathop{\mathrm{adj}}}% adjoint
+
+%*********************************************************************
+
+%def alert
+\def\alert#1{\textbf{\textcolor{red}{\uwave{#1}}}}
+%*********************************************************************
+\begin{document}
+さて、少し状況を変える。$\rho_M$が$\rho_\varphi$を非常に下回れば($\rho_M\ll \rho_{\varphi}$)、式(1.5.37)の$H=\sqrt{\frac{8\pi G \rho_V}{3}}$より、式\eqref{eq:1.12.4}を考えれば、
+\begin{align}
+  \ddot{\varphi}+\sqrt{24 \pi G \rho_{\varphi}} \dot{\varphi}-\alpha M^{4+\alpha} \varphi^{-\alpha-1}=0 \label{eq:1.12.10}
+\end{align}%
+$\rho_V \to \rho_\varphi$と置き換えた。$\rho_\varphi$は式\eqref{eq:1.12.2}で与えられる。
+そして、この時代のトラッカー解は、複雑な時間依存性を持っている。
+しかし、十分に時間が経過し、現在よりももっと後の時刻になれば(?)、再び単純な形をとることを見よう。
+$\dot{\varphi}$に比例する減衰項は、$\varphi$の成長を妨げることから、最終的に$\dot{\varphi}$は$V(\varphi)$よりも小さくなり、また、$\ddot{\varphi}$に比例する慣性項は、減衰項やポテンシャル項に比べて、無視できるようになると推測できる(これは、4章と10章でのべるインフレーションの理論で重要な役割を果たす「スローロール（slow roll)」条件とよく似ている(らしい))。
+%僕なりにちゃんと言い換えると、$\dot{\varphi}$が$\varphi$の成長を妨げて、$\varphi$の成長を緩やかにする。
+%これは、場がポテンシャル上をゆっくりと転がっていくことに相当。($\dot{\varphi}\ll V(\varphi)$)そして、$\ddot{\varphi}$
+これらより、
+\begin{align}
+\dot{\varphi} \ll V(\varphi )\quad  かつ  \quad |\ddot{\varphi}| \ll  V^{\prime}(\varphi)
+\end{align}%
+という条件を課せば、式\eqref{eq:1.12.10}は、
+\begin{align}
+  \sqrt{24 \pi G M^{4+\alpha} \varphi^{-\alpha}} \dot{\varphi}=\alpha M^{4+\alpha} \varphi^{-\alpha-1}
+\end{align}%
+となって、整理すると、
+\begin{align}
+  \dot{\varphi}=\frac{\alpha M^{2+\alpha / 2} \varphi^{-\alpha / 2-1}}{\sqrt{24 \pi G}}
+\end{align}%
+解けば、
+\begin{align}
+  \varphi=M\left(\frac{\alpha(2+\alpha / 2) t}{\sqrt{24 \pi G}}\right)^{1 /(2+\alpha / 2)} \label{eq:1.12.12}
+ \end{align}%
+となる。
+ここで、$t$に積分定数を付与する代わりに、時刻のゼロ点を再定義した、とテキストが言っているが、$\phi(0) = 0$と定義したということで、
+指数の振る舞いを考えたいがために、このように表記を簡便にしたのだと思う。
+そもそも、この方程式を考えている時、時刻$t$が大きい時のことを考えていた。
+なので、現実的には、時刻$t$が小さい場合の方程式の解とうまく接続してやればいいと思う。
+
+さて、この得られた解を用いて、上で課したスローロール（に似ている）条件の近似の妥当性を確認してみよう。
+得られた解(式\eqref{eq:1.12.12})から、種々の量を計算すると、
+\begin{align}
+  \ddot{\varphi} & \propto t^{-(3+\alpha) /(2+\alpha / 2)} \\
+  \dot{\varphi}^{2} & \propto t^{-(2+\alpha) /(2+\alpha / 2)} \\
+  V^{\prime}(\varphi) &\propto t^{-(1+\alpha) /(2+\alpha / 2)} \\
+  V(\varphi) &\propto t^{-\alpha /(2+\alpha / 2)}
+\end{align}%;
+となる。$\dot{\varphi}^{2}$と$V(\varphi)$を比べると、$2/(2+\alpha/2)$次だけ違って、時間が十分経過すれば、場の運動エネルギーは、ポテンシャルに比べて小さくなることが確かめられる。また、$\ddot{\varphi} $と$V^{\prime}(\varphi) $を比べると、こちらも同じ次数だけ違って、時刻$t$が大きいところで、慣性項に比べてポテンシャルの微分に比べて小さくなることも確かめられる。
+したがって、式\eqref{eq:1.12.12}が$t\to \infty$における正しい漸近解であることが確かめられた。
+また、数値解より、これは$t \to \infty$における解であるだけではなく、$t \to \infty$においてトラッカー解が近づく漸近解でもあることが確かめられる（そうだが、まだ数値計算は成功していない）。
+
+先ほどの条件の下で、$\rho_{\varphi} \propto t^{-\alpha /(2+\alpha / 2)} (\propto V(\varphi))$が後期の宇宙膨張率を支配しているときは、$\dot{a} / a \propto t^{-\alpha / 2(2+\alpha / 2)}$である。というのは、$H = \sqrt{\frac{8\pi G \rho_{\varphi}}{3}}$だったから。このとき、$a$の解は、積分してやると、
+\begin{align}
+  \ln a \propto t^{2 /(2+\alpha / 2)}  \label{eq:1.12.13}
+\end{align}%
+宇宙定数$\Lambda$によって、引き起こされる$a$の急激な成長$\ln a \propto t$に似ているが、これよりは遅い成長である。
+このクインテッセンスのモデルの減速パラメーター$q_0$と膨張が宇宙定数で支配されるときの減速パラメター$q = -1$の比較をするには、
+式\eqref{eq:1.12.13}の両辺を二回微分してやると、
+\begin{align}
+  -\frac{\dot{a}^2}{a^2} + \frac{\ddot{a}}{a} \propto t^{2/(2+\alpha/2)}\\
+  \Rightarrow \quad -1 -(- \ddot{a}/(a H^2)) \propto t^{2/(2+\alpha/2)}/(\dot{a}^2 a^2 )\\
+  \Rightarrow \quad  q_0 -  \underbrace{(-1)}_{膨張が宇宙定数に支配されるときのq} \propto t^{-(2+\alpha) /(2+\alpha / 2)}
+\end{align}%
+結果的に、$\quad  q_0 -  (-1)\propto t^{-(2+\alpha) /(2+\alpha / 2)}$のように減少する。
+さて、放射と物質の密度$\rho$は、それぞれ$1 / a^{4} 、1 / a^{3}$のように減少し、また、これらの時空間の曲率は$1 / a^{2}$のように減少する。
+\footnote{これは、$\Omega_K \equiv -\frac{K}{a_0^2 H_0^2}$から、$K = -\Omega_K /a^2$と考えたらよろしい。もっとスマートな方法があったら教えていただければと思います。}
+$\rho_\varphi$の減少と比較するために、$t$の冪を使ってやれば、
+放射と物質の密度$\rho$は、それぞれ(だいたい)$t^{-2}$で減少する。
+そして、これらの曲率は、それぞれ、(だいたい)$t^{-1}、t^{-4/3}$のように減少し、
+だいたいと書いたのは、十分初期(K=0)の時のフリードマン方程式の結果を使ったから。
+しかしながら、$K$があっても、冪が$-1$より小さくならないほどの大きなズレがあることはないだろう、といい加減な考察をして次に進む。
+と、ここまでノートを書いたが、やっぱりいい加減だと思ったので、スケール因子$a$が場$\phi$のEOMが座標の運動方程式の形の方程式だったことを思い出して、$a \sim \varphi$とみなしたとして、考えてみると、先ほどの式\eqref{eq:1.12.12}の結果を素直に使って比較することで矛盾はない。
+結果的に、放射、物質の密度と時空間の曲率は$\rho_{\varphi}$が従う冪則よりも非常に早く減少する。
+したがって、後期の宇宙の膨張率は確かに$\rho_{\varphi}$に支配されるので、式(1.12.10)：
+\begin{align}
+  \ddot{\varphi}+\sqrt{24 \pi G \rho_{\varphi}} \dot{\varphi}-\alpha M^{4+\alpha} \varphi^{-\alpha-1}=0
+\end{align}%
+の導出法を正当化できる。
+
+このように、(少なくともある範囲の初期条件に関しては、)式(1.12.5)のクインテッセンスモデルの元祖で最も単純なポテンシャル:%\eqref{eq:1.12.5}
+\begin{align}
+  V(\varphi) = M^{4 + \alpha} \varphi^{-\alpha}
+\end{align}%
+は、初期に放射、次に物質、そして後期にスカラー場$\varphi$のエネルギーによって支配される宇宙膨張へと導く。
+しかし、観測と整合性を取るためには、考えないといけないことがあって、
+\begin{enumerate}
+\item 定数を加える任意性
+\item $M$の値をあわせる必要
+\end{enumerate}%
+の二つがある。
+前者は、ポテンシャルに定数の任意性があって、そして、現在の宇宙定数が非常に小さいという観測結果がある。
+これを、どのようにして、加えても何ら不思議ではない大きい定数を任意に除去するのか、というのが一つ。
+次に、式(1.12.8)%\eqref{1.12.8}
+で与えられる、$\rho_{\varphi} = \rho_{M}$となる時刻$t_c$が、現在の時刻$t_0 \approx 1/H_0$とほぼ同じになるように$M$の値を合わせる必要があって、
+\begin{align}
+  M^{4+\alpha}  \approx G^{-1 - \alpha/2} H_0^2
+\end{align}%
+と、値$M$をとらせねばならない。しかしながら、観測結果から決めたからいいものを、どうして、この値でなくてはならないのか、その理由は全くわかっていない。
+
+いくつかの観測グループが、真空のエネルギー密度が宇宙定数のように一定なのか、それとも時間変化しているのかを発見しようと、観測プロジェクトを計画している。
+そのようなプロジェクトの実験の方針は次の通り。
+まず、光度距離$d_{L}=a\left(t_{0}\right) r_{1}(1+z)$（あるいは、角径距離$\theta=s / d_{A} \,(d_{A}=a\left(t_{1}\right) r_{1})$)を観測し、
+それを式(1.5.45)：
+\begin{align}
+  \begin{aligned} d_{L}(z)=& a_{0} r(z)(1+z)=\frac{1+z}{H_{0} \Omega_{K}^{1 / 2}} \\ & \times \sinh \left[\Omega_{K}^{1 / 2} \int_{1 /(1+z)}^{1} \frac{d x}{x^{2} \sqrt{\Omega_{\Lambda}+\Omega_{K} x^{-2}+\Omega_{R} x^{-4}}}\right] \end{aligned}
+\end{align}%
+の平方根の中身$\Omega_\Lambda$を時間変化する暗黒エネルギーに置き換えた式と比較する。
+ただし、これらの観測では、現在の時刻における$w = p/\rho$の値$w_0$を直接測定するわけではない。いわんや、現在の時刻における微分$\dot{w},\ddot{w}$を測定するわけはない。
+というのは、そのような目的には小さな赤方偏移のおける光度距離（や角径距離）を非常に精度よく測定する必要があるからである。
+実際の測定は、ほど良い精度で広範囲の赤方偏移に渡って行われる。
+さて、そのような測定を理論と比較するためには、暗黒エネルギーの時間変化のモデルが必要となる。
+例えば、単純に$w$が一定と仮定したり、$w$が時間や赤方偏移に関して線形になると仮定するモデルがあるが、そのような振る舞いを持つ物理的モデルは存在しない。
+スカラー場のモデルに近いような$z$依存性を持つ$w$の関数形の研究もある。
+それより、スカラー場のモデルと観測を比較する方が好ましいだろう。
+そのスカラー場のモデルは、（モデルの自然さに多くの疑いがあるものの\footnote{whatever reservations may have about its naturalness の訳。上手。}）少なくとも物理的に可能な時間変動する暗黒エネルギーを与える。
+これらの観測は難しいため、たった二つのパラメーター記述できるスカラー場のモデルを採用するのは有益である。
+その二つのパラメータは、例えば、$\Omega_{\Lambda} = 1- \Omega_{M}$と$w_0$を使って表すことができる。
+$M,\alpha$とどう関係づけられるのかがあまりわからんが、
+ポテンシャル$V(\varphi)$を特徴付けるパラメーター$M,\alpha$の二つのパラメーターの自由度が、$w = p/\rho=({\dot{\varphi}^2/2 - V(\varphi)})/({\dot{\varphi}^2/2 + V(\varphi)})$と、$\Omega_\Lambda $を指定するのに化けたということ。
+
+一つの可能性として、宇宙膨張によって、宇宙が$e$倍になった期間におけるスカラー場$\varphi$の値に対して、$V(\varphi)$がゆっくりと変化しなかった場合を考えよう。\footnote{どうでもいいけど、$e$倍とか考えるのは、真空優勢で$a$は、$\exp$で増えるところから来ている。}
+もし、$V(\varphi)$が全く変化しなかったら、それは定数の真空エネルギーと等価であり、$w = -1$となる。
+この場合、唯一のパラメータは$\Omega_{\Lambda}$である。
+二つのパラメータをフィットさせるときは、$V(\varphi)$を$\varphi$に関して線形に変化するようにとれて、\footnote{なんで？疑問に思いつつ保留にしておく。}
+\begin{align}
+  V(\varphi) = V_0 + (\varphi - \varphi_0) V_0^\prime
+\end{align}%
+当たり前だけど、$V_0^\prime = \partial_\varphi V(\varphi_0)$のこと。
+これは、$\left|V_{0}^{\prime \prime} \dot{\varphi}_{0}\right| \ll H_{0}\left|V_{0}^{\prime}\right|$だったら有効。
+言い換えると、$V^\prime(\varphi)$の微小変化が、$1/H_0$の時間幅において、（$V^\prime(\varphi)$より）\footnote{テキストにはこの文言がない。}小さければ有効。（テキストの後の方では、$\Delta t \sim 1/H_0$の間に、ポテンシャルが線形と扱って良い条件、と言い換えられている。）
+これを式にしてみると、
+\begin{align}
+ \frac{d V^{\prime}(\varphi)}{dt} \underbrace{\Delta t}_{\sim 1/H_0} \ll V^\prime(\varphi)
+\end{align}%
+
+唐突ではあるが、$\varphi(t)$の場の方程式を無次元化することを考える。
+無次元変数$x$と$\omega$を以下のように定義する。
+\begin{align}
+  x \equiv  H_0 \sqrt{\Omega_M} t , \quad \omega \equiv \frac{8\pi G V(\varphi)}{3 \Omega_M H_0^2}
+\end{align}%
+では、独立変数$t$とその従属変数$\varphi(t)$を上の定義から置き換えて、便利な無次元形式を考えていこう。
+考えるべき方程式(式(1.12.4))は、%\eqref{eq:1.12.4}
+\begin{align}
+  \ddot{\varphi}+3 H \dot{\varphi}+V^{\prime}(\varphi)=0
+\end{align}%
+だったことを考えつつ、
+$\omega$を微分すると、
+\begin{align}
+   \dot{\omega} &= \frac{8 \pi G V_{0}^{\prime}}{3 \Omega_{M} H_{0}^{2}} \dot{\varphi} \\
+   \Rightarrow \dot{\varphi}&=\frac{3 \Omega_{M} H_{0}^{2} \dot{\omega}}{8 \pi G V_{0}^{\prime}} =\frac{3 \Omega_{M}^{3 / 2} H_{0}^{3}}{8 \pi G V_{0}^{\prime}} \frac{d \omega}{d x}
+\end{align}%
+ただし、途中で、
+\begin{align}
+  \frac{d}{dx} = \frac{dt}{dx} \frac{d}{dt} = \frac{1}{H_0 \sqrt{\Omega_{M}} }\frac{d}{dt}
+\end{align}%
+を用いた。
+さらに、$\dot{\varphi}$を$t$で微分すれば、
+\begin{align}
+  \ddot{\varphi} 
+    =& \frac{3 \Omega_{M}^{3 / 2} H_{0}^{3}}{8 \pi G V_{0}^{\prime}}  \underbrace{\frac{dx}{dt} \frac{d}{dx}}_{d/dt}\frac{d \omega}{d x}\\
+    =& \frac{3 \Omega_{M}^{2} H_{0}^{4}}{8 \pi G V_{0}^{\prime}} \frac{d^2 \omega }{dx^2} = \frac{V_{0}^{\prime} }{\lambda}
+\end{align}%
+これらを用いて、式(1.12.4)は、%\eqref{eq:1.12.4}は、
+\begin{align}
+  \frac{d^{2} \omega}{d x^{2}}+3 \mathcal{H} \frac{d \omega}{d x}+\lambda=0 \label{eq:1.12.17}
+\end{align}%
+ただし、$\lambda$は無次元パラメーターで、
+\begin{align}
+  \lambda \equiv \frac{8 \pi G V_{0}^{\prime 2}}{3 H_{0}^{4} \Omega_{M}^{2}}
+\end{align}%
+また、$\mathcal{H}$は、
+\begin{align}
+  \mathcal{H} \equiv \frac{H}{H_{0} \sqrt{\Omega_{M}}}=\sqrt{(1+z)^{3}+\omega+\frac{1}{2 \lambda}\left(\frac{d \omega}{d x}\right)^{2}}
+\end{align}
+である。
+これは、$K=0$のフリードマン方程式から、$H  = \sqrt{\frac{8\pi G}{3} (\rho_{\varphi} + \rho_{M})}$を真面目に考えてあげると、係数も含めてちゃんと出る。
+$\mathcal{H}$は$\omega$と$d\omega/dx$の関数。
+赤方偏移に関する微分方程式も必要で、$dz/dt = d/dt(a(t_0)/a(t) -1) = -H(1+z)$から、
+\begin{align}
+  \frac{d z}{d x}=-\mathcal{H}(1+z) \label{eq:1.12.20}
+\end{align}%
+一般に、$x$に関する微分を$z$に関する微分で書いたならば、$z$の二回微分方程式になるから、これらの方程式を解くには$z$の初期値における$\omega$と$d\omega/dz$の初期条件が必要となり、$\lambda$と合わせて全部で三つのパラメーターで記述される解を持つ。
+しかし、高赤方偏移のエネルギー密度は、真空ではなく物質によって支配されているならば(そして後に見るように実際そうであるらしいが)、物質優勢期の後期における微分$d\omega/dx$は初期条件にほとんどよらなくなる。\footnote{R. Cahn, private communication. Cahn has also shown that the approximation of neglecting the second derivative term in the field equation does not work well in this context.と脚注にはある。}
+これは、時間が十分立って非常に平坦なところをローリングしている頃は初期条件によらないということだと思われる。
+$z \gg 1$に対して、$\mathcal{H}$は、
+\begin{align}
+  \mathcal{H} \to (1+z)^{3/2}
+\end{align}%
+を与える。これは、今、物質の寄与を考えている。
+これより、式\eqref{eq:1.12.17}と式\eqref{eq:1.12.20}はそれぞれ以下の解を持つ。
+\begin{align}
+  1+z \rightarrow\left(\frac{3 x}{2}\right)^{-2 / 3}, \qquad \frac{d \omega}{d x} \rightarrow-\frac{\lambda x}{3} \label{eq:1.12.22}
+\end{align}%
+(今、$z$の解の積分定数は、時刻のゼロ点を適当に選ぶことによって$x$の定義に吸収した。また、$d\omega /dx$の解の積分定数は無視した。また、$d\omega/dx$の積分定数を含むこうは時間が経過するに連れて、$x^{-2} \propto t^{-2}$のように減衰する。これは、積分定数を含んだ買いを元の微分方程式に代入すればわかる。)
+こうして得られた解の自由なパラメーターは、$\lambda$と$x$の任意の初期値$x_1$における$\omega$の値である。($d\omega/dx$は棄却されたんだった。)
+ただし、$x_1$は宇宙のエネルギー密度が真空のエネルギーではなくて、物質のエネルギーで支配された時期に対応するようにとる。
+（定数$V_0$はこれらの式のどこにも現れないことに注意しよう。それは$\Omega(x_1)$に寄与するが、わざわざ分けて書く必要はない。)
+そこで、$\lambda$と$\omega(x_1)$の様々な試しの値を採用してみなければならない。
+式\eqref{eq:1.12.22}を用いて、$1+z$と$d\omega/dx$を$x = x_1$において計算し、これらの初期条件を用いて微分方程式\eqref{eq:1.12.17}と式\eqref{eq:1.12.20}を数値的に、$x_1$から$z=0$に対応する$x_0$まで積分して、
+得られた特解から、必要に応じて、$\Omega_\Lambda$と$w_0$を決定する。\footnote{ファントムエネルギーを作るには、作用の微分こうを逆符号にしたら出るそうだ。}
+\begin{align}
+  \frac{\Omega_{\Lambda}}{\Omega_{M}}=\omega\left(x_{0}\right)+\frac{1}{2 \lambda}\left(\frac{d \omega}{d x}\right)_{x=x_{0}}^{2} \qquad w_{0}=\frac{(d \omega / d x)_{x=x_{0}}^{2}-2 \lambda \omega\left(x_{0}\right)}{(d \omega / d x)_{x=x_{0}}^{2}+2 \lambda \omega\left(x_{0}\right)}
+\end{align}%
+暗黒エネルギー(場$\varphi$のエネルギー)のある時刻における値と現在の値との比$\xi$を考えてやると、
+\begin{align}
+  \xi \equiv \frac{\rho_{V}(t)}{\rho_{V}\left(t_{0}\right)}=\frac{(d \omega(x) / d x)^{2}+2 \lambda \omega(x)}{(d \omega / d x)_{x=x_{0}}^{2}+2 \lambda \omega\left(x_{0}\right)}
+\end{align}%
+となる。
+たとえば、もし、$\Omega_{\Lambda}=1-\Omega_{M}=0.76 、 w_{0}=-0.777$と取れば、$\xi$は、$z=1$で1.273、無限大の赤方偏移で1.340に上昇する。(表1.1 が数値計算結果)
+十分大きな$z$で$\xi$が一定の値に近づくのは、赤方偏移が大きくなるにつれ物質密度が増加し、宇宙の膨張率が大きくなることで、摩擦項が早期のスカラー場の値を凍結させるからである。
+
+さて、考えたポテンシャルで、$z$が大きい領域で、暗黒エネルギー密度が一定に近づくことは、暗黒エネルギーの観測をこのポテンシャルの理論的予言と比較することが、真空のエネルギーが小さいのは宇宙が古いせいであるというクインテッセンスを考える動機になったアイデアを諦めるわけではない。
+事実、$V(\varphi)  \propto \varphi^{-\alpha}$で与えられるポテンシャルでは、スローロールに達した間はほぼ一定値を取り、最終的には場はトラッカー解へと漸近する。
+ただし、現在の時刻までにトラッカー解に達しないような、十分小さな$\alpha$を取ることができる。逆冪を小さくするということ。
+このポテンシャルが、$1/H_0$の期間に渡って線形と扱って良いという条件：$\left|V_{0}^{\prime \prime} \dot{\varphi}_{0}\right| \ll H_{0}\left|V_{0}^{\prime}\right|$を満たすようにするには、$\alpha(1+\alpha) \varphi_{0}^{-2} \ll 8 \pi G$を満たせば良い。式(1.12.9)によれば、$\alpha <1$で満たされる。
+
+さて、二つのパラメーターモデルのもう一つの可能性として、同じ形のポテンシャルなんだけれども、スカラー場が早期の、物質優勢期のある時刻(例えば$z \leq 10$)にトラッカー解に到達したという仮定を置いてみる。
+この仮定を置くことで、観測可能な時期における暗黒エネルギーの歴史は初期条件によらなくなり、モデルはただ二つのパラメーター$M、\alpha$で記述できる。
+このモデルを記述する方程式を先ほどと同様に無次元形式に書き換えてやることを考える。以下で定義されるポテンシャルの結合定数を無次元パラメーター$\beta$で書き換えてやれば、
+\begin{align}
+  M^{4+\alpha} \equiv \beta \Omega_{M} H_{0}^{2}(8 \pi G)^{-1-\alpha / 2}
+\end{align}%
+次に、独立変数$t$と従属変数$\varphi$をそれぞれ、以下で定義される無次元定数$x$と$f$で書き換える。
+\begin{align}
+  t \equiv x / H_{0} \sqrt{\Omega_{M}}, \quad \varphi(t) \equiv f(x) / \sqrt{8 \pi G}
+\end{align}%
+さすれば、物質と真空のエネルギーが支配する場の方程式はこう書き換えられる。
+\begin{align}
+  \frac{d^{2} f}{d x^{2}}+3 \mathcal{H} \frac{d f}{d x}-\alpha \beta f^{-\alpha-1}=0
+\end{align}%
+ただし、
+\begin{align}
+  \mathcal{H} \equiv H / \sqrt{\Omega_{M}} H_{0}=\sqrt{\frac{1}{6}\left(\frac{d f}{d x}\right)^{2}+\frac{\beta}{3} f^{-\alpha}+(1+z)^{3}}
+\end{align}%
+$z$に関する方程式は同様に、
+\begin{align}
+  \frac{d z}{d x}=-\mathcal{H}(1+z)
+\end{align}%
+これの解は、高赤方偏移はアトラクターであるから、初期条件が自由なパラメーターとはならない。
+これらの無次元変数に対する初期条件は$x \to 0$に置いて以下で与えられる。
+\begin{align}
+  f \rightarrow\left[\frac{\alpha \beta(\alpha+2)^{2} x^{2}}{2(\alpha+4)}\right]^{1 /(\alpha+2)}、\quad 
+  1+z \rightarrow\left(\frac{2}{3 x}\right)^{2 / 3}
+\end{align}%
+この初期条件を用いて、ある小さな$x$(例えば、$x = 0.01$)から$z=0$に対応する$x_0$まで積分し、$\mathcal{H} ( x_0) = 1/\sqrt{\Omega_M}$の条件から、$\Omega_M = 1- \Omega_{\Lambda}$を計算する。
+また、$w$の現在の値は、以下の式から計算できる。
+\begin{align}
+  w_{0}=\frac{f^{\prime 2}\left(x_{0}\right) f\left(x_{0}\right)^{\alpha} / 2 \beta-1}{f^{\prime 2}\left(x_{0}\right) f\left(x_{0}\right)^{\alpha} / 2 \beta+1}
+\end{align}%
+これらを用いて、$\alpha、\beta$を$\Omega_{M}、w_0$に焼き直せる。
+ここからは計算例の紹介。
+例えば、もし任意に$\alpha = 1$と選べば、現実的な観測結果$\Omega_{M} = 0.24$を得るために、$\beta = 9.93$と選ばないといけなくて、この場合$w_0 = -0.777$となる。
+他の$\alpha$の値を選んで、同じ$\Omega_{M}$の値を与えるように、$\beta$を再調整すれば、他のどのような$-1$より大きい値を取ることができる。
+（ただし、$\alpha$が小さくなると、現在の時刻よりずっと以前にトラッカー解に到達するような初期条件の範囲は狭くなる（らしい）。）
+例えば、$\alpha = 1/2$ならば、$\Omega_{M}$を同じ値を与えるようにするには$\beta = 7.82$でなくてはならず、この場合$w_0 = -0.87$となる。
+$\Omega_M = 0.24$と$w_0 = -0.777$に対して計算された暗黒エネルギーとその現在の値との比が表1.1。
+また、同じ$\Omega_{M}$と$w_0$の値に対して、$w$が一定の場合と、$V(\varphi)=V_{0}+\left(\varphi-\varphi_{0}\right) V_{0}^{\prime}$の線形ポテンシャルの場合も表1.1。
+トラッカーモデルと線形モデルは、暗黒エネルギーの時間依存性に関して明らかに正反対の仮定を代表しているが、両者ともに、定数$w$を仮定するよりは物理的な動機がある。
+
+\end{document}
+         
+\section{Intergalactic absorption}\label{sec1-10:Intergalactic-absorption}
+\section{Number counts}\label{sec:Number-counts}
+\section{Horizons}\label{sec:Horizons}
+
+\part{THE COSMIC MICROWAVE RADIATION BACKGROUND}
+\section{Expectations and discovery of the microwave background}
+\section{The equilibrium era}
+\section{Recombination and last scattering}
+\section{The dipole anisotorpy}
+\section{The Sunyaev-Zel'dovich effect}
+\section{Primary fluctuations in the microwave background: A first look}
+
+\part{THE EARLY UNIVE
