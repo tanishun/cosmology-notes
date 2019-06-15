@@ -1,0 +1,359 @@
+% !TEX TS-program = LuaLaTeX
+\documentclass[11pt]{ltjsarticle}
+
+
+%フォント(和文) japreset を使うことによって、一括に管理するようにしている。
+\usepackage[hiragino-pron,jis2004,
+deluxe%明朝体・ゴシック体各3ウェイトと，丸ゴシック体（mg）を利用可能にする
+,bold%明朝体太字をゴシック体太字によって代替する．
+]{luatexja-preset}
+%\renewcommand{\kanjifamilydefault}{\gtdefault}% 既定をゴシック体に
+
+\usepackage[height=8.8in,width=7.45in]{geometry}
+
+
+
+%数式フォント
+\usepackage{mathptmx}
+\usepackage[scaled]{helvet}
+\renewcommand{\ttdefault}{pcr}
+
+\usepackage{mathtools} %extended amsmath
+\usepackage{amssymb}
+%\mathtoolsset{showonlyrefs=true,showmanualtags}%represent the number of equation when quote eqref
+%\mathtoolsset{showonlyrefs,showmanualtags}
+%\usepackage[warnings-off={mathtools-colon}]{unicode-math}
+
+
+% not understanded
+\countdef\cpart=1
+\def\part#1{%
+\newpage
+\advance\cpart by 1
+\section*{Part \the\cpart: #1}
+\addcontentsline{toc}{section}{Part \the\cpart: #1}
+%
+}
+\usepackage[nottoc]{tocbibind}
+
+\usepackage{bm} %boldmath
+\usepackage{mathdots}
+\usepackage{ulem}
+
+
+%????? これが効かないので一時的に外す。
+
+\usepackage{graphicx} % include graphic
+\usepackage{float}
+\usepackage[svgnames]{xcolor}%(xcolor.pdf p38~39)
+
+\usepackage{tensor}%for part 1 relativity
+
+\usepackage{enumerate}
+\usepackage{adjustbox}
+\usepackage[
+ unicode=true,
+ colorlinks=true,
+ bookmarks=true,
+ bookmarksnumbered=true,
+ pdftitle={notes},% タイトル
+ pdfsubject={relativity},% サブタイトル
+ pdfauthor={Shun Taniwaki},% 著者
+ pdfkeywords={Weinberg-Cosmology}% キーワード
+ citecolor=DarkGreen,
+ linkcolor=FireBrick,
+ %urlcolor=FireBrick,
+ linktocpage=true,
+]{hyperref}
+
+%\usepackage{pxjahyper} ドライバ依存パッケージ
+\usepackage[thref,amsmath,thmmarks]{ntheorem}
+
+\theoremstyle{plain}
+\theorembodyfont{\normalfont}
+%\theoremsymbol{\text{\normalfont (Q.E.D.)}}
+\theoremseparator{.}
+\theoremstyle{break}
+
+\usepackage{mdframed}
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{principle}{原理}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{assumption}{仮定}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{definition}{定義}[section]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10,linecolor=black!0]{formula}{公式}[section]
+%\newmdtheoremenv[ntheorem,backgraoudcolor=black!0]{theorem}{定理}[subsection]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!10]{theorem}[definition]{事実}
+\newmdtheoremenv[ntheorem,backgroundcolor=black!3,linecolor=black!0]{example}{(計算)例}[definition]
+\newmdtheoremenv[ntheorem,backgroundcolor=black!0]{unclear}{Unclear points}[section]
+%\newmdtheoremenv[mdframedoption]{envname}[numberedlike]{caption} [within]
+
+
+\usepackage{tikz}
+\usepackage[compat=1.1.0]{tikz-feynman} %前に配置すると、xcolorと喧嘩する。
+
+%\mathtoolsset{showonlyrefs,showmanualtags}
+
+\usepackage{physics}
+
+% def bold faces
+\bmdefine{\bfa}{a}
+\bmdefine{\bfb}{b}
+\bmdefine{\bfc}{c}
+\bmdefine{\bfd}{d}
+\bmdefine{\bfe}{e}
+\bmdefine{\bff}{f}
+\bmdefine{\bfg}{g}
+\bmdefine{\bfh}{h}
+\bmdefine{\bfi}{i}
+\bmdefine{\bfj}{j}
+\bmdefine{\bfk}{k}
+\bmdefine{\bfl}{l}
+\bmdefine{\bfm}{m}
+\bmdefine{\bfn}{n}
+\bmdefine{\bfo}{o}
+\bmdefine{\bfp}{p}
+\bmdefine{\bfq}{q}
+\bmdefine{\bfr}{r}
+\bmdefine{\bfs}{s}
+\bmdefine{\bft}{t}
+\bmdefine{\bfu}{u}
+\bmdefine{\bfv}{v}
+\bmdefine{\bfw}{w}
+\bmdefine{\bfx}{x}
+\bmdefine{\bfy}{y}
+\bmdefine{\bfz}{z}
+\bmdefine{\bfA}{A}
+\bmdefine{\bfB}{B}
+\bmdefine{\bfC}{C}
+\bmdefine{\bfD}{D}
+\bmdefine{\bfE}{E}
+\bmdefine{\bfF}{F}
+\bmdefine{\bfG}{G}
+\bmdefine{\bfH}{H}
+\bmdefine{\bfI}{I}
+\bmdefine{\bfJ}{J}
+\bmdefine{\bfK}{K}
+\bmdefine{\bfL}{L}
+\bmdefine{\bfM}{M}
+\bmdefine{\bfN}{N}
+\bmdefine{\bfO}{O}
+\bmdefine{\bfP}{P}
+\bmdefine{\bfQ}{Q}
+\bmdefine{\bfR}{R}
+\bmdefine{\bfS}{S}
+\bmdefine{\bfT}{T}
+\bmdefine{\bfU}{U}
+\bmdefine{\bfV}{V}
+\bmdefine{\bfW}{W}
+\bmdefine{\bfX}{X}
+\bmdefine{\bfY}{Y}
+\bmdefine{\bfZ}{Z}
+\bmdefine{\bftheta}{\theta}
+\bmdefine{\bfphi}{\varphi}
+\bmdefine{\bfomega}{\omega}
+
+
+
+
+%mathbf
+\newcommand{\mbfa}{\mathbf{a}}
+\newcommand{\mbfb}{\mathbf{b}}
+\newcommand{\mbfc}{\mathbf{c}}
+\newcommand{\mbfd}{\mathbf{d}}
+\newcommand{\mbfe}{\mathbf{e}}
+\newcommand{\mbff}{\mathbf{f}}
+\newcommand{\mbfg}{\mathbf{g}}
+\newcommand{\mbfh}{\mathbf{h}}
+\newcommand{\mbfi}{\mathbf{i}}
+\newcommand{\mbfj}{\mathbf{j}}
+\newcommand{\mbfk}{\mathbf{k}}
+\newcommand{\mbfl}{\mathbf{l}}
+\newcommand{\mbfm}{\mathbf{m}}
+\newcommand{\mbfn}{\mathbf{n}}
+\newcommand{\mbfo}{\mathbf{o}}
+\newcommand{\mbfp}{\mathbf{p}}
+\newcommand{\mbfq}{\mathbf{q}}
+\newcommand{\mbfr}{\mathbf{r}}
+\newcommand{\mbfs}{\mathbf{s}}
+\newcommand{\mbft}{\mathbf{t}}
+\newcommand{\mbfu}{\mathbf{u}}
+\newcommand{\mbfv}{\mathbf{v}}
+\newcommand{\mbfw}{\mathbf{w}}
+\newcommand{\mbfx}{\mathbf{x}}
+\newcommand{\mbfy}{\mathbf{y}}
+\newcommand{\mbfz}{\mathbf{z}}
+\newcommand{\mbfA}{\mathbf{A}}
+\newcommand{\mbfB}{\mathbf{B}}
+\newcommand{\mbfC}{\mathbf{C}}
+\newcommand{\mbfD}{\mathbf{D}}
+\newcommand{\mbfE}{\mathbf{E}}
+\newcommand{\mbfF}{\mathbf{F}}
+\newcommand{\mbfG}{\mathbf{G}}
+\newcommand{\mbfH}{\mathbf{H}}
+\newcommand{\mbfI}{\mathbf{I}}
+\newcommand{\mbfJ}{\mathbf{J}}
+\newcommand{\mbfK}{\mathbf{K}}
+\newcommand{\mbfL}{\mathbf{L}}
+\newcommand{\mbfM}{\mathbf{M}}
+\newcommand{\mbfN}{\mathbf{N}}
+\newcommand{\mbfO}{\mathbf{O}}
+\newcommand{\mbfP}{\mathbf{P}}
+\newcommand{\mbfQ}{\mathbf{Q}}
+\newcommand{\mbfR}{\mathbf{R}}
+\newcommand{\mbfS}{\mathbf{S}}
+\newcommand{\mbfT}{\mathbf{T}}
+\newcommand{\mbfU}{\mathbf{U}}
+\newcommand{\mbfV}{\mathbf{V}}
+\newcommand{\mbfW}{\mathbf{W}}
+\newcommand{\mbfX}{\mathbf{X}}
+\newcommand{\mbfY}{\mathbf{Y}}
+\newcommand{\mbfZ}{\mathbf{Z}}
+%tilde
+\newcommand{\tilg}{\tilde{g}}
+\newcommand{\tilGamma}{\tilde{\Gamma}}
+%****
+\def\TODO#1{{\color{FireBrick} #1}}
+%***
+\newcommand{\Slash}[1]{{\ooalign{\hfil/\hfil\crcr$#1$}}}%スラッシュ引くよう
+
+\def\ii{\mathrm{i}}
+\def\Nequals#1{$\mathcal{N}{=}\,#1$}
+
+%def tensors
+\newcommand{\tensorR}[1]{\tensor{R}{ #1}}
+\newcommand{\tensorGamma}[1]{\tensor{\Gamma}{ #1}}
+\newcommand{\tensorG}[1]{\tensor{G}{ #1}}
+\newcommand{\tensorg}[1]{\tensor{g}{ #1}}
+
+%def math operators
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\def\odi#1#2{\frac{d #1}{d #2}} %ordinary differential
+\def\todi#1#2{\frac{d^{2} #1}{d #2^{2}}} %two ordinary differential
+\newcommand{\pdi}[2]{\frac{\partial #1}{\partial #2}}%partial differential
+\newcommand{\tpdi}[2]{\frac{\partial #1^{2}}{\partial #2^{2}}}%two partial differential
+\def\vev#1{\Bigl(#1\Bigr)}% Vacume Expectation Value ?
+\DeclareMathOperator{\sign}{sign}% sign
+\def\diag{\mathop{\mathrm{diag}}\nolimits}% diagonalize
+\def\tr{\mathop{\mathrm{tr}}\nolimits}% trace
+\def\adj{\mathop{\mathrm{adj}}}% adjoint
+
+%*********************************************************************
+
+%def alert
+\def\alert#1{\textbf{\textcolor{red}{\uwave{#1}}}}
+%*********************************************************************
+\begin{document}
+\section{宇宙マイクロ波背景放射の発見と期待(途中から。)\\(Expectations and discovery of the microwave background)}
+高エネルギーの陽子と宇宙マイクロ波背景放射の$\pi$中間子を生成する散乱過程：
+\begin{align}
+  \gamma + p &\to \pi^0 +p\\
+  \gamma + p &\to \pi^+ +n
+\end{align}
+を考える。
+この過程の反応断面積が重要になるエネルギーにおいて、陽子宇宙線のスペクトルが減少が見られるはずである。
+\footnote{
+これは、宇宙マイクロ波背景放射が及ぼす効果のうち、長い間存在が予期はされていたけれども、観測が難しかった効果である。
+他にも、$p + \gamma \to p + \gamma$という陽子と電子の散乱があるが、これはファインマンダイアグラムをかくとvertex が二つで、反応断面積が$\alpha^2$に比例するのに対して、先の反応は$\alpha$が一次である。}
+
+さて、この$\pi$中間子を生成する過程では、中間状態で、バリオン共鳴状態：$\mathrm{B_{10}}$：$\Delta^{+}\,(uud)\,(I =3/2,I_3=1/2)$を経由し、これが過程の有効的なエネルギーのしきい値を決定して、重心系の全エネルギー$W$が$m_{\Delta}$に等しい時である。
+衝突前の光子と陽子の(実験室系での)運動量ベクトルをそれぞれ$\mbfq,\mbfp$とすれば、($|p|\gg |m_p| \gg |q|$\footnote{高エネルギーの陽子なので成り立つ。})
+\begin{align}
+  W
+   &=\left(\left(q+\sqrt{p^{2}+m_{p}^{2}}\right)^{2}-|\mathbf{q}+\mathbf{p}|^{2}\right)^{1 / 2}\quad (q = |\mbfq|,p=|\mbfp|)\\
+   &=\left(m_p^2+2q\underbrace{\sqrt{p^2+m_p^2}}_{p}-2pq\cos\theta \right)^{1/2}\\
+   &\simeq\left(2 q p(1-\cos \theta)+m_{p}^{2}\right)^{1 / 2}
+\end{align}%
+とかける。これより、$W$がしきい値をこえる条件は、
+\begin{align}
+  W &> m_{\Delta} (>0)\\
+  \Leftrightarrow \quad W^2 &> m_{\Delta}^2 \\
+  \rightarrow \quad 2qp(1-\cos\theta) &> m_{\Delta}^2 -m_{p}^2
+\end{align}%
+と、テキストとすこし異なる表式と（私が計算すると）なる。
+そして、有効的なプロトンのエネルギーの値$p_{\text { threshold }}$は、
+\begin{align}
+  p_{\text { threshold }}
+   &\approx \frac{m_{\Delta}^{2}-m_{p}^{2}}{2(1-\cos\theta) \rho_{\gamma 0} / n_{\gamma 0}}\\
+   &\geq\frac{(1230\,\mathrm{MeV})^2-(936\,\mathrm{MeV})^2}{2\times2\times 6\times10^{-4}\,\mathrm{eV}} \simeq 2.7 \times 10^{20} \mathrm{eV}
+\end{align}%
+となる。
+
+この効果を直接観測するのは無理なので間接的に行う。
+もし直接的に観測するとなると、エネルギーが$E\sim E+dE$の間にある陽子宇宙線のフラックス(単位時間および単位体積あたりに観測される宇宙線粒子の数)は、およそ$E^{-3} dE$に比例するから、大雑把に言って、$10^{19}\,\mathrm{eV}$を超えるエネルギーでは、1year\,に$1\,\mathrm{km^2}$あたり1個の陽子で、$10^{20}\,\mathrm{eV}$を超えるエネルギーでは、1year\,に$1\,\mathrm{km^2}$あたり$1/100$個の陽子が期待されるが、効率を考えるとこれは到底無理な話。
+間接的には、陽子宇宙線が生成する光子や、荷電粒子の巨大シャワーの地上観測を通じて、間接的に行わねばならない。
+また、光子のエネルギー分布や進行方向の分布は滑らかであるから、スペクトルは$10^{20}\,\mathrm{eV}$で鋭く落ちるわけではなく、このエネルギー付近でスペクトルが$E^{-3}$の曲線を下回っているかどうかで判別することになる。
+\footnote{この実験結果の予言は、この\href{https://www.nature.com/news/2008/080318/full/452264b.html}{サイト}、This energy ‘cut-off’ was predicted in 1966 by Kenneth Greisen of Cornell University in Ithaca, New York, and in the same year by Soviet physicists Georgiy Zatsepin and Vadim Kuzmin of the Lebedev Institute of Physics in Moscow. とのこと。}
+
+さて、観測の結果は次の通り。
+\begin{enumerate}
+\item 1998年、日本の明野広域空気シャワー観測装置(AGASA,Akeno Giant Air Shower Array)では観測されず。
+\item 2003年、上のAGASAのデータ解析、および他の観測によってこの効果の存在が示された。
+\item 2004年、スペクトル減少の兆候が高分解能フライズ・アイ実験(HiRes, High Resolution Fly's Eye)のデータに現れる。
+\item 2006年、HiRes\,チームは一次宇宙線のスペクトルの中に、ほぼ期待されていたエネルギー$6\times 10^{19}\,\mathrm{eV}$における急激な減衰(GZK cutoff)を観測したと発表した。
+\end{enumerate}%
+これにまつわる経緯は\href{https://www.nature.com/news/2008/080318/full/452264b.html}{このサイト}(\url{https://www.nature.com/news/2008/080318/full/452264b.html})が詳しい。
+
+\section{平衡期(The equilibrium era) (途中まで)}
+この節では、放射と物質が熱平衡状態にある時期を考える。
+
+相対論的粒子である光子が、自由膨張していれば、その周波数分布は黒体放射のスペクトルの形を保存し、その温度は$1/a(t)$に比例して減少する。
+一方、電子や原子核のような非相対論的粒子が自由膨張していれば、その運動量分布はマクスウェル-ボルツマン分布
+\footnote{僕の備忘録のために復習しておくと、Maxwell分布：気体分子の速度分布関数
+$f (v_x , v_y , v_z )$ の具体的な形は、以下のような2つの仮定をすると、簡単な考察によって求めることができるのだった。 等方性の仮定: 速度の分布は、その方向によらない。 独立性の仮定: 速度の直交成分 vx, vy, vz の各分布は独立。\url{http://www.stat.phys.kyushu-u.ac.jp/~nakanisi/jugyou/LectureNotes/Note-StatMech-I.pdf}を参照。}
+を保存して、$p \propto 1/a(t)$のように減少するから、マクスウェル-ボルツマン分布は$1/a(t)^2$に比例して減少する。
+では、温度は、放射では$1/a(t)$で、物質では$1/a(t)^2$のように減少するが、もし、放射と物質が熱平衡状態にあればどのような振る舞いを示すだろうか？
+
+この問題は、いわば、”民主主義的”に解決され、光子の数が電子や核子に比べて圧倒的に多いため、温度はほぼ厳密に$1/a(t)$に比例して減少する。（自然が民主主義を採用していると言っているわけではない。）
+
+上の問題を、熱力学第二法則を適用することで考えてみる。
+平衡状態では、共動体積中のエントロピーとバリオン数(温度が$10^{13}\,\mathrm{K}$よりずっと低ければ、バリオン数は陽子と中性子の数に等しい)は一定であるから、それらの比、すなわち、1つのバリオンあたりのエントロピーも一定である。
+１バリオンあたりのエントロピーを$k_B \sigma$とすると\footnote{こうすると、$\sigma$が無次元量になる}、熱力学第二法則より、
+\begin{align}
+  d\left(k_{B} \sigma\right)=\frac{d\left(\epsilon / n_{B}\right)+p d\left(1 / n_{B}\right)}{T} \label{eq:2.2.1}
+\end{align}%
+となる。
+ただし、$n_B$はバリオンの数密度、\footnote{逆数は１バリオンあたりの体積に相当。}$\epsilon$は熱的エネルギー密度、$p$は圧力である。
+
+簡単のため、光子と(大部分が、陽子、ヘリウム原子核、および電子の)非相対論的物質粒子からなる理想気体を考えよう。
+１バリオンあたりの非相対論的物質粒子の数$\mathcal{N}$は固定すると、以下の式が得られる。
+\begin{align}
+  \epsilon=a_{\mathcal{B}} T^{4}+\frac{3}{2} n_{B} \mathcal{N} k_{\mathcal{B}} T, \quad p=\frac{1}{3} a_{\mathcal{B}} T^{4}+n_{B} \mathcal{N} k_{\mathcal{B}} T
+\end{align}%
+それぞれ、第一項が光子の寄与で、第二項がバリオンの寄与である。
+これは、式\eqref{eq:2.2.1}より、
+\begin{align}
+    \int d\left(k_{B} \sigma\right)
+     &=\int \frac{d\left(\epsilon / n_{B}\right)+p d\left(1 / n_{B}\right)}{T }\\
+%     &=\int \frac{d\left(\epsilon }{ n_{B} T } + \int \left( p / n_{B} T\right)
+     &=\int d \left( \frac{\epsilon }{n_{B} } \right)\frac{1}{T}+ \int d \left({1 }/{ n_{B}} \right) \frac{p}{T}\\
+\end{align}%
+第一項は、
+\begin{align}
+  \int d \left( \frac{a_{\mathcal{B}} T^{4}+\frac{3}{2} n_{B} \mathcal{N} k_{\mathcal{B}} T}{n_{B} } \right)\frac{1}{T}
+  &=\int dT \Bigl(  \frac{4 a_{\mathcal{B}}}{n_B} T^{2}+ \frac{3}{2} \frac{n_{B} \mathcal{N} k_{\mathcal{B}} }{n_{B} } \frac{1}{T}\Bigr) \\
+  &=\frac{4 a_{\mathcal{B}}}{3 n_B} T^{3}+\frac{3}{2} \mathcal{N} k_{\mathcal{B}} \ln T +C
+\end{align}%
+第二項は、
+\begin{align}
+  \int d \left({1 }/{ n_{B}} \right) \frac{p}{T} 
+  &=\int d n_{B}\frac{-1}{n_{B}^2 }\frac{\frac{1}{3} a_{\mathcal{B}} T^{4}+n_{B} \mathcal{N} k_{\mathcal{B}} T
+}{T}\\
+ &=\int d  n_{B} \left( - \frac{a_{\mathcal{B}}T^3 }{3 } \frac{1}{n_{B}^2 }  - \mathcal{N} k_{\mathcal{B}} \frac{1}{n_B}\right)\\
+ &=  \frac{a_{\mathcal{B}}T^3 }{3 } \frac{1}{n_{B} } + \mathcal{N} k_{\mathcal{B}} \ln (1/n_B) +C
+\end{align}%
+したがって、解は、
+\begin{align}
+  \sigma=\frac{5 a_{\mathcal{B}} T^{3}}{3 n_{B} k_{\mathcal{B}}}+\mathcal{N} \ln \left(\frac{T^{3 / 2}}{n_{B} C}\right)
+\end{align}%
+と、私が計算すると、テキストと少し異なる表式になる。
+\end{document}
+         
+
+\part{THE COSMIC MICROWAVE RADIATION BACKGROUND}
+\section{Expectations and discovery of the microwave background}
+\section{The equilibrium era}
+\section{Recombination and last scattering}
+\section{The dipole anisotorpy}
+\section{The Sunyaev-Zel'dovich effect}
+\section{Primary fluctuations in the microwave background: A first look}
+
+\part{THE EARLY UNIVE
